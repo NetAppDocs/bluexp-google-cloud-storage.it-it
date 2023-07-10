@@ -1,0 +1,151 @@
+---
+sidebar: sidebar 
+permalink: task-add-gcp-bucket.html 
+keywords: google cloud storage buckets, google cloud storage, add buckets 
+summary: 'Una volta che l"ambiente di lavoro di Google Cloud Storage è disponibile in Canvas, è possibile aggiungere ulteriori bucket direttamente da BlueXP.' 
+---
+= Aggiungi i bucket di storage Google Cloud
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Una volta che l'ambiente di lavoro di Google Cloud Storage è disponibile in Canvas, è possibile aggiungere ulteriori bucket direttamente da BlueXP.
+
+.Fasi
+. Da Canvas, fare doppio clic sull'ambiente di lavoro di Google Cloud Storage per visualizzare la pagina Panoramica dei bucket di storage di Google Cloud, quindi fare clic su *Aggiungi bucket*.
++
+image:screenshot-add-gcp-bucket-button.png["Una schermata che mostra i dettagli di un ambiente di lavoro di Google Cloud Storage e il pulsante Add bucket (Aggiungi bucket)."]
+
++
+Viene visualizzata la pagina _Add bucket_.
+
++
+image:screenshot-add-gcp-bucket.png["Una schermata che mostra la pagina Add Bucket (Aggiungi bucket) per creare il tuo bucket Google Cloud Storage personalizzato."]
+
+. Inserire le informazioni richieste nella sezione _Dettagli progetto_.
++
+[cols="25,75"]
+|===
+| Campo | Descrizione 
+
+
+| Nome bucket | Immettere il nome che si desidera utilizzare per il bucket. https://cloud.google.com/storage/docs/buckets#naming["Consultare la documentazione di Google Cloud per i requisiti di naming"^]. 
+
+
+| Progetto Google  a| 
+Seleziona il progetto Google che sarà il proprietario del bucket. Può trattarsi del progetto principale in cui è stato implementato il connettore o di un progetto diverso.
+
+Se nell'elenco a discesa non sono presenti progetti aggiuntivi, l'account del servizio BlueXP non è ancora stato associato ad altri progetti. Accedere alla console di Google Cloud, aprire il servizio IAM e selezionare il progetto. Aggiungere l'account del servizio con il ruolo BlueXP a quel progetto. Dovrai ripetere questo passaggio per ogni progetto.
+
+
+NOTE: Account di servizio impostato per BlueXP, https://docs.netapp.com/us-en/bluexp-setup-admin/task-set-up-permissions-google.html#set-up-permissions-for-the-connector["come descritto in questa pagina"^].
+
+
+
+| Etichette  a| 
+Le etichette sono metadati per le risorse Google Cloud. È possibile aggiungere fino a 10 coppie chiave etichetta:valore quando si crea un bucket.
+
+https://cloud.google.com/compute/docs/labeling-resources["Per ulteriori informazioni sulle etichette, consulta la documentazione di Google Cloud"^].
+
+|===
+. Nella sezione _Location_, selezionare il tipo di ubicazione e la regione (o le regioni) in cui verrà creato il bucket. È possibile scegliere tra tre diversi tipi di posizioni.
++
+[cols="35,65"]
+|===
+| Se si seleziona "tipo di ubicazione"... | Quindi selezionare... 
+
+
+| Regione | Una singola regione dal campo "regioni disponibili". 
+
+
+| Regione doppia  a| 
+La posizione geografica (un singolo continente) dal campo "ubicazioni disponibili", quindi selezionare due regioni nel campo "regioni disponibili".
+
+È possibile attivare la "replica Turbo" se si desidera garantire la geodundancy per tutti gli oggetti appena scritti entro una destinazione di 15 minuti.
+
+
+
+| Multi-regione | Multi-regione geografica dal campo "multi-regioni disponibili". 
+|===
++
+Si noti che tutti i dati del Cloud Storage sono ridondanti in almeno due zone all'interno di almeno una posizione geografica non appena vengono caricati. https://cloud.google.com/storage/docs/locations["Per ulteriori informazioni sulle posizioni dei bucket, consulta la documentazione di Google Cloud"^].
+
+. Nella sezione _Storage class_, selezionare la classe di storage che verrà utilizzata per gli oggetti nel bucket. È possibile scegliere tra quattro classi di storage oppure selezionare _Autaula_ per fare in modo che Google regoli la classe in base alle esigenze.
++
+[cols="25,75"]
+|===
+| Classe di storage | Descrizione 
+
+
+| Standard | Lo storage standard è ideale per i dati a cui si accede frequentemente (dati "hot") e/o memorizzati solo per brevi periodi di tempo. 
+
+
+| Nearline | Lo storage nearline è un servizio di storage a basso costo e altamente durevole per la memorizzazione dei dati a cui si accede raramente. 
+
+
+| Coldline | Lo storage Coldline è un servizio di storage altamente durevole e a costi molto contenuti per la memorizzazione dei dati a cui si accede raramente. 
+
+
+| Archiviare | Lo storage di archivio è il servizio di storage più economico e altamente durevole per l'archiviazione dei dati, il backup online e il disaster recovery. 
+
+
+| Classe automatica | La classe automatica trasforma automaticamente gli oggetti nel bucket nelle classi di storage appropriate in base al modello di accesso di ciascun oggetto. 
+|===
++
+I costi e i costi di recupero sono diversi per ogni classe di storage. https://cloud.google.com/storage/docs/storage-classes["Per ulteriori informazioni sulle classi di storage, consultare la documentazione di Google Cloud"^].
+
+. Nella sezione _Protection_, scegliere se si desidera utilizzare qualsiasi strumento di protezione dei dati per proteggere gli oggetti nel bucket o qualsiasi configurazione di crittografia dei dati per proteggere l'accesso ai dati.
++
+[cols="25,75"]
+|===
+| Protezione dei dati | Descrizione 
+
+
+| Nessuno | Per impostazione predefinita, nel bucket non sono attivati strumenti di protezione. 
+
+
+| Versione degli oggetti  a| 
+Il bucket conserverà una versione dell'oggetto non corrente ogni volta che si aggiorna, sostituisce o elimina una versione dell'oggetto live, mantenendo una versione dell'oggetto protetta. Quando si seleziona "versione oggetto", è possibile specificare due opzioni:
+
+** *Max. Numero di versioni per oggetto* - immettere il numero di versioni non correnti per oggetto che verranno create.
+** *Scadenza versioni non correnti dopo* - immettere il numero di giorni dopo i quali verranno rimossi gli oggetti meno recenti e non correnti.
+
+
+
+
+| Policy di conservazione  a| 
+Una politica di conservazione garantisce che tutti gli oggetti correnti e futuri nel bucket non possano essere cancellati o sostituiti fino a quando non raggiungono l'età definita nella politica di conservazione. Quando si seleziona "policy di conservazione", è possibile specificare due opzioni:
+
+** *Mantieni oggetti per* - immettere il numero di secondi, giorni, mesi o anni in cui gli oggetti verranno conservati.
+** *Periodo di tempo* - selezionare se l'intervallo di tempo è espresso in secondi, giorni, mesi o anni.
+
+
+|===
++
+Gli strumenti di protezione della versione e dei criteri di conservazione degli oggetti non possono essere attivati contemporaneamente. Consultare la documentazione di Google Cloud per https://cloud.google.com/storage/docs/object-versioning["ulteriori informazioni sulla versione degli oggetti"^], e. https://cloud.google.com/storage/docs/bucket-lock["ulteriori informazioni sulle policy di conservazione"^].
+
++
+[cols="25,75"]
+|===
+| Crittografia dei dati | Descrizione 
+
+
+| Chiave di crittografia gestita da Google | Per impostazione predefinita, le chiavi di crittografia gestite da Google vengono utilizzate per crittografare i dati. 
+
+
+| Chiave di crittografia gestita dal cliente (CMEK)  a| 
+È possibile utilizzare le proprie chiavi gestite dal cliente per la crittografia dei dati invece di utilizzare le chiavi di crittografia predefinite gestite da Google. Se si prevede di utilizzare le proprie chiavi gestite dal cliente, è necessario crearle già in modo da poter selezionare le chiavi in questa pagina.
+
+Le chiavi possono trovarsi nello stesso Project del bucket oppure è possibile selezionare un progetto diverso.
+
+|===
++
+Consultare la documentazione di Google Cloud per https://cloud.google.com/storage/docs/encryption/default-keys["Ulteriori informazioni sulle chiavi di crittografia gestite da Google"^], e. https://cloud.google.com/storage/docs/encryption/customer-managed-keys["Ulteriori informazioni sulle chiavi di crittografia gestite dal cliente"^].
+
+. Fare clic su *Add* (Aggiungi) per creare il bucket.
+

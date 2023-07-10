@@ -1,0 +1,16 @@
+---
+layout: landing-page 
+sidebar: sidebar 
+permalink: index.html 
+lead: Get started using Google Cloud Storage with your BlueXP system. 
+summary: Inizia a utilizzare Google Cloud Storage con il tuo sistema BlueXP. 
+---
+= Documentazione di Google Cloud Storage
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
